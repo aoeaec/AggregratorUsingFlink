@@ -10,10 +10,6 @@ Functionality
 4. Error is handled using ControllerAdvice and a meaning ful msg is sent to the end user.
 
 
-To Do
-1. At present chunks created every nth minute of hour, n is the number mentioned in the request. It has to be changed to nth minute starting from start of stream.
-
-
 
 Steps to run app
 1. Go to the app folder and run command:: `mvn install`, this will build the jar for the project
