@@ -15,3 +15,9 @@ To Do
 
 
 
+Steps to run app
+1. Go to the app folder and run command:: `mvn install`, this will build the jar for the project
+2. Run command to build docker image :: `docker build -t spring-boot .`
+3. If you want to run command from outside the app folder, please change last dor (.) with appropriate folder where you could see Dockerfile for this project
+4. Once the image is built, run ::`docker run -d -p 8080:8080 -t spring-boot `
+
