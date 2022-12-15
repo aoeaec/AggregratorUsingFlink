@@ -1,6 +1,7 @@
 package com.gaurav.aggregator.web.advice;
 
 import com.gaurav.aggregator.common.APILogger;
+import com.gaurav.aggregator.exception.AggregatorException;
 import com.gaurav.aggregator.model.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class ExceptionControllerAdvice {
     @Autowired
     private APILogger logger;
 
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({AggregatorException.class, Exception.class, })
     public ResponseEntity<ErrorResponse> genericErrorHandler(Exception exception) {
         return handleException(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
