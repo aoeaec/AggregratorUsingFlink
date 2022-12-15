@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "cd6545e2-86f2-47a2-9faf-45da750f8099",
+		"name": "Aggregate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/aggregate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"period\":20}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/aggregate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aggregate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
