@@ -1,5 +1,6 @@
 package com.gaurav.aggregator.controller;
 
+import com.gaurav.aggregator.common.APILogger;
 import com.gaurav.aggregator.web.controller.AggregatorController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,8 @@ class AggregatorControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @MockBean
+    APILogger apiLogger;
     @MockBean
     AggregatorController aggregatorController;
 

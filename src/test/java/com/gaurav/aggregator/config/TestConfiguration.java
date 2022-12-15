@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Configuration;
         "com.gaurav.aggregator.repository",
         "com.gaurav.aggregator.web.controller",
         "com.gaurav.aggregator.engine",
-        "com.gaurav.aggregator.engine.flink"
+        "com.gaurav.aggregator.engine.flink",
+        "com.gaurav.aggregator.common",
+        "com.gaurav.aggregator.web.advice"
+
 })
 public class TestConfiguration {
 
