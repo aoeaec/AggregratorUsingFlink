@@ -2,7 +2,7 @@ package com.gaurav.aggregator.service;
 
 import com.gaurav.aggregator.engine.AggregateEngine;
 import com.gaurav.aggregator.model.AggregatorResponseDTO;
-import com.gaurav.aggregator.model.AggregatedResult;
+import com.gaurav.aggregator.model.AggregatedResultForFlink;
 import com.gaurav.aggregator.model.FetchedData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,16 +14,16 @@ public class AggregateService {
     AggregateEngine flinkEngine;
     public AggregatorResponseDTO aggregate(int minutes){
 
-        AggregatedResult aggregatedResult = null;
+        AggregatedResultForFlink aggregatedResultForFlink = null;
         AggregatorResponseDTO responseDTO = new AggregatorResponseDTO();
         try {
 
-            aggregatedResult = flinkEngine.aggregate(minutes);
+            aggregatedResultForFlink = flinkEngine.aggregate(minutes);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        for(FetchedData result : aggregatedResult.getAggregatedData()){
+        for(FetchedData result : aggregatedResultForFlink.getAggregatedData()){
             responseDTO.getAssetId().getCode_3000().add(result.getCode_3000());
             responseDTO.getAssetId().getCode_3001().add(result.getCode_3001());
             responseDTO.getAssetId().getCode_3002().add(result.getCode_3002());

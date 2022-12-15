@@ -1,8 +1,8 @@
 package com.gaurav.aggregator.engine;
 
-import com.gaurav.aggregator.model.AggregatedResult;
+import com.gaurav.aggregator.model.AggregatedResultForFlink;
 
 public interface AggregateEngine {
 
-    public AggregatedResult aggregate(int minutes) throws Exception;
+    public AggregatedResultForFlink aggregate(int minutes) throws Exception;
 }

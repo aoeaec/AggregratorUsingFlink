@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AggregatedResult {
+public class AggregatedResultForFlink {
 
 
     List<FetchedData> aggregatedData = new ArrayList<>();

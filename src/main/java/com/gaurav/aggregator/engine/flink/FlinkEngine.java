@@ -2,7 +2,7 @@ package com.gaurav.aggregator.engine.flink;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gaurav.aggregator.engine.AggregateEngine;
-import com.gaurav.aggregator.model.AggregatedResult;
+import com.gaurav.aggregator.model.AggregatedResultForFlink;
 import com.gaurav.aggregator.model.DataProviderResult;
 import com.gaurav.aggregator.model.FetchedData;
 import com.gaurav.aggregator.model.Metric;
@@ -30,7 +30,7 @@ public class FlinkEngine implements AggregateEngine {
     FlinkRepository repository;
 
     @Override
-    public AggregatedResult aggregate(int minutes) throws Exception {
+    public AggregatedResultForFlink aggregate(int minutes) throws Exception {
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         DataProviderResult dataProviderResult = repository.getDataProviderResult();
 
@@ -42,10 +42,10 @@ public class FlinkEngine implements AggregateEngine {
                 .addSink(new CustomSinkFunction());
 
         env.execute();
-        AggregatedResult aggregatedResult = new AggregatedResult();
-        aggregatedResult.setAggregatedData(List.copyOf(CustomSinkFunction.fetchedDataList));
+        AggregatedResultForFlink aggregatedResultForFlink = new AggregatedResultForFlink();
+        aggregatedResultForFlink.setAggregatedData(List.copyOf(CustomSinkFunction.fetchedDataList));
         CustomSinkFunction.fetchedDataList.clear();
-        return aggregatedResult;
+        return aggregatedResultForFlink;
     }
 
     private List<FetchedData> createFetchedDataListFromDataProviderResult(DataProviderResult dataProviderResult) {
