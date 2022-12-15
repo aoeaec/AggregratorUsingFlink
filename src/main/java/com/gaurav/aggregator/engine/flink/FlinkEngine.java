@@ -42,7 +42,7 @@ public class FlinkEngine implements AggregateEngine {
 
     @Override
     public AggregatedResultForFlink aggregate(int minutes) {
-        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+        env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
         DataProviderResult dataProviderResult = repository.getDataProviderResult();
 
         List<FetchedData> fetchedDataList = createFetchedDataListFromDataProviderResult(dataProviderResult);
