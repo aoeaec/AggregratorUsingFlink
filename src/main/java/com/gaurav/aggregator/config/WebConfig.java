@@ -13,8 +13,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Value("${flink.repo.url}")
     private String flinkRepoUrl;
+
     @Bean
-    public ObjectMapper getObjectMapper(){
+    public ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return objectMapper;

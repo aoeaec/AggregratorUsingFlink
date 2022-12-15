@@ -11,7 +11,7 @@ public class FlinkRepository {
     @Autowired
     WebClient webClient;
 
-    public DataProviderResult getDataProviderResult(){
+    public DataProviderResult getDataProviderResult() {
         WebClient.ResponseSpec responseSpec = webClient.get().retrieve();
         return responseSpec.bodyToMono(DataProviderResult.class).block();
     }

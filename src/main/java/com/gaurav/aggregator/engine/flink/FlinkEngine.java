@@ -2,6 +2,7 @@ package com.gaurav.aggregator.engine.flink;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gaurav.aggregator.engine.AggregateEngine;
+import com.gaurav.aggregator.exception.AggregatorException;
 import com.gaurav.aggregator.model.AggregatedResultForFlink;
 import com.gaurav.aggregator.model.DataProviderResult;
 import com.gaurav.aggregator.model.FetchedData;
@@ -29,8 +30,18 @@ public class FlinkEngine implements AggregateEngine {
     @Autowired
     FlinkRepository repository;
 
+    private static FetchedData deriveAverage(FetchedData a, FetchedData b) {
+        try {
+            return new FetchedData((a.getCode_3000() + b.getCode_3000()) / 2, (a.getCode_3001() + b.getCode_3001()) / 2,
+                    (a.getCode_3002() + b.getCode_3002()) / 2, (a.getCode_3003() + b.getCode_3003()) / 2,
+                    (a.getCode_3004() + b.getCode_3004()) / 2, (a.getCode_3005() + b.getCode_3005()) / 2, a.getTime());
+        } catch (Exception e) {
+            throw new AggregatorException("Unable to derive average ::" + e);
+        }
+    }
+
     @Override
-    public AggregatedResultForFlink aggregate(int minutes) throws Exception {
+    public AggregatedResultForFlink aggregate(int minutes) {
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         DataProviderResult dataProviderResult = repository.getDataProviderResult();
 
@@ -38,10 +49,14 @@ public class FlinkEngine implements AggregateEngine {
 
         DataStream<FetchedData> fetchedDataStream = env.fromCollection(fetchedDataList);
         fetchedDataStream.assignTimestampsAndWatermarks(new CustomTimestampsAndWatermarks()).keyBy(FetchedData::getTest).window(TumblingEventTimeWindows.of(Time.minutes(minutes)))
-               .reduce(FlinkEngine::deriveAverage)
+                .reduce(FlinkEngine::deriveAverage)
                 .addSink(new CustomSinkFunction());
 
-        env.execute();
+        try {
+            env.execute();
+        } catch (Exception e) {
+            throw new AggregatorException("Unable to execute flink " + e.getStackTrace());
+        }
         AggregatedResultForFlink aggregatedResultForFlink = new AggregatedResultForFlink();
         aggregatedResultForFlink.setAggregatedData(List.copyOf(CustomSinkFunction.fetchedDataList));
         CustomSinkFunction.fetchedDataList.clear();
@@ -57,16 +72,6 @@ public class FlinkEngine implements AggregateEngine {
         }
 
         return fetchedDataList;
-    }
-
-    private static FetchedData deriveAverage(FetchedData a, FetchedData b) {
-        try {
-            return new FetchedData((a.getCode_3000() + b.getCode_3000()) / 2, (a.getCode_3001() + b.getCode_3001()) / 2,
-                    (a.getCode_3002() + b.getCode_3002()) / 2, (a.getCode_3003() + b.getCode_3003()) / 2,
-                    (a.getCode_3004() + b.getCode_3004()) / 2, (a.getCode_3005() + b.getCode_3005()) / 2, a.time);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 

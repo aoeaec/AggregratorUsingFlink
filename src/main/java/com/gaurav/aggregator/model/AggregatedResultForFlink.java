@@ -11,5 +11,5 @@ import java.util.List;
 public class AggregatedResultForFlink {
 
 
-    List<FetchedData> aggregatedData = new ArrayList<>();
+    private List<FetchedData> aggregatedData = new ArrayList<>();
 }

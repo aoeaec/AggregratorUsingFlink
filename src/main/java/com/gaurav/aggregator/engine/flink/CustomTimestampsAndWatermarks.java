@@ -15,9 +15,9 @@ public class CustomTimestampsAndWatermarks implements AssignerWithPeriodicWaterm
 
     @Override
     public long extractTimestamp(FetchedData fetchedData, long l) {
-        long timestamp = fetchedData.time.getTime();
+        long timestamp = fetchedData.getTime().getTime();
 
         currentMaxTimestamp = timestamp;
-         return timestamp;
+        return timestamp;
     }
 }

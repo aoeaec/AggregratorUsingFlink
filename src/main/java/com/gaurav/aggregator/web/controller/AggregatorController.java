@@ -15,7 +15,7 @@ public class AggregatorController {
     private AggregateService aggregateService;
 
     @PostMapping(path = "/aggregate")
-    public AggregatorResponseDTO getAggregate(@RequestBody AggregateRequestDTO requestDTO){
+    public AggregatorResponseDTO getAggregate(@RequestBody AggregateRequestDTO requestDTO) {
 
         return aggregateService.aggregate(requestDTO.getPeriod());
     }

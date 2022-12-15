@@ -10,7 +10,14 @@ import java.util.Date;
 public class FetchedData {
 
 
-
+    private String test = "test";
+    private Double code_3000;
+    private Double code_3001;
+    private Double code_3002;
+    private Double code_3003;
+    private Double code_3004;
+    private Double code_3005;
+    private Date time;
     public FetchedData(Double code_3000, Double code_3001, Double code_3002, Double code_3003, Double code_3004, Double code_3005, Date time) {
         this.code_3000 = code_3000;
         this.code_3001 = code_3001;
@@ -20,16 +27,6 @@ public class FetchedData {
         this.code_3005 = code_3005;
         this.time = time;
     }
-
-    public String test = "test";
-    public Double code_3000;
-    public Double code_3001;
-    public Double code_3002;
-    public Double code_3003;
-    public Double code_3004;
-    public Double code_3005;
-    public Date time;
-
 
     public Double getCode_3000() {
         return code_3000 == null ? 0 : code_3000;
