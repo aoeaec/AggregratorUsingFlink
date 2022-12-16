@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+
 @Getter
 @RequiredArgsConstructor
 @Setter
 public class AggregateRequestDTO {
 
-    private int period;
+    @Valid
+    private Integer period;
 }

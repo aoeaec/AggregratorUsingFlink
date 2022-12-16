@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 public class AggregateService {
 
     @Autowired
-    AggregateEngine flinkEngine;
+    AggregateEngine<AggregatedResultForFlink> flinkEngine;
 
     public AggregatorResponseDTO aggregate(int minutes) {
 
         AggregatorResponseDTO responseDTO = new AggregatorResponseDTO();
-        AggregatedResultForFlink aggregatedResultForFlink = flinkEngine.aggregate(minutes);
+        AggregatedResultForFlink aggregatedResultForFlink = flinkEngine.performAggregate(minutes);
         for (FetchedData result : aggregatedResultForFlink.getAggregatedData()) {
             responseDTO.getAssetId().getCode_3000().add(result.getCode_3000());
             responseDTO.getAssetId().getCode_3001().add(result.getCode_3001());

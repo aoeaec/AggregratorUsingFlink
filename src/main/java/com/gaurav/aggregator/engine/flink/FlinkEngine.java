@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FlinkEngine implements AggregateEngine {
+public class FlinkEngine implements AggregateEngine<AggregatedResultForFlink> {
 
     final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -41,8 +41,8 @@ public class FlinkEngine implements AggregateEngine {
     }
 
     @Override
-    public AggregatedResultForFlink aggregate(int minutes) {
-        env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
+    public AggregatedResultForFlink performAggregate(int minutes) {
+        env.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime);
         DataProviderResult dataProviderResult = repository.getDataProviderResult();
 
         List<FetchedData> fetchedDataList = createFetchedDataListFromDataProviderResult(dataProviderResult);

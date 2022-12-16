@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class AggregatorController {
 
@@ -15,7 +17,7 @@ public class AggregatorController {
     private AggregateService aggregateService;
 
     @PostMapping(path = "/aggregate")
-    public AggregatorResponseDTO getAggregate(@RequestBody AggregateRequestDTO requestDTO) {
+    public AggregatorResponseDTO getAggregate(@Valid @RequestBody AggregateRequestDTO requestDTO) {
 
         return aggregateService.aggregate(requestDTO.getPeriod());
     }

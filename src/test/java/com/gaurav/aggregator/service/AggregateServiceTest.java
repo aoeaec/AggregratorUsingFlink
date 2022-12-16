@@ -41,7 +41,7 @@ class AggregateServiceTest {
         }
         AggregatedResultForFlink aggregatedResultForFlink = new AggregatedResultForFlink();
         aggregatedResultForFlink.setAggregatedData(fetchedDataList);
-        when(flinkEngine.aggregate(4)).thenReturn(aggregatedResultForFlink);
+        when(flinkEngine.performAggregate(4)).thenReturn(aggregatedResultForFlink);
         AggregatorResponseDTO aggregate = aggregateService.aggregate(4);
         Assert.assertEquals(aggregate.getAssetId().getCode_3000().size(), fetchedDataList.size());
         Assert.assertEquals(aggregate.getAssetId().getCode_3001().size(), fetchedDataList.size());
